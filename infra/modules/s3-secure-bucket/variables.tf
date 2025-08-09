@@ -1,3 +1,4 @@
+
 variable "bucket_name" {
   description = "Name of the S3 bucket."
   type        = string
@@ -14,4 +15,11 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "versioning" {
+  description = "Enable S3 bucket versioning"
+  type        = bool
+  default     = true
+}
+
 

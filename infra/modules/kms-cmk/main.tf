@@ -1,10 +1,22 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"
+    }
+  }
+}
+
 resource "aws_kms_key" "this" {
   description             = var.description
   deletion_window_in_days = var.deletion_window_in_days
-  enable_key_rotation     = true
+  enable_key_rotation     = var.enable_key_rotation
+
+  tags = var.tags
 }
 
 resource "aws_kms_alias" "this" {
-  name          = "alias/${var.alias}"
-  target_key_id = aws_kms_key.this.key_id
+  name          = "alias/${var.alias_name}"
+  target_key_id = aws_kms_key.this.id
 }
+

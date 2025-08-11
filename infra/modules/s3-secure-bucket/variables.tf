@@ -21,9 +21,10 @@ variable "force_destroy" {
   default     = false
 }
 
+
 variable "kms_key_arn" {
-  description = "ARN of the customer-managed KMS key for encryption. If null, AES256 is used."
+  description = "Optional CMK ARN. If set, bucket policy enforces this exact key for PutObject."
   type        = string
-  default     = null
+  default     = ""
 }
 

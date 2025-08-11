@@ -103,10 +103,61 @@ data "aws_iam_policy_document" "with_cmk" {
   }
 }
 
+
 locals {
-  use_cmk            = var.kms_key_arn != ""
-  bucket_policy_json = local.use_cmk ? data.aws_iam_policy_document.with_cmk[0].json : data.aws_iam_policy_document.base.json
+  # Base statements (always applied)
+  base_statements = [
+    {
+      Sid    = "DenyInsecureTransport"
+      Effect = "Deny"
+      Action = "s3:*"
+      Resource = [
+        "${aws_s3_bucket.this.arn}",
+        "${aws_s3_bucket.this.arn}/*",
+      ]
+      Principal = "*"
+      Condition = {
+        Bool = { "aws:SecureTransport" = "false" }
+      }
+    }
+  ]
+
+  # Extra statements if a CMK is provided (var.kms_key_arn not empty)
+  kms_statements = var.kms_key_arn == "" ? [] : [
+    {
+      Sid       = "DenyIncorrectEncryptionHeader"
+      Effect    = "Deny"
+      Action    = "s3:PutObject"
+      Principal = "*"
+      Resource  = "${aws_s3_bucket.this.arn}/*"
+      Condition = {
+        StringNotEquals = {
+          "s3:x-amz-server-side-encryption" = "aws:kms"
+        }
+      }
+    },
+    {
+      Sid       = "DenyWrongKMSKey"
+      Effect    = "Deny"
+      Action    = "s3:PutObject"
+      Principal = "*"
+      Resource  = "${aws_s3_bucket.this.arn}/*"
+      Condition = {
+        StringNotEquals = {
+          "s3:x-amz-server-side-encryption-aws-kms-key-id" = var.kms_key_arn
+        }
+      }
+    },
+  ]
+
+  # Final bucket policy JSON (single definition!)
+  bucket_policy_json = jsonencode({
+    Version   = "2012-10-17"
+    Id        = "S3BucketPolicy"
+    Statement = concat(local.base_statements, local.kms_statements)
+  })
 }
+
 
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id

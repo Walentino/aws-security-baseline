@@ -4,26 +4,19 @@ variable "bucket_name" {
 }
 
 variable "tags" {
-  description = "A map of tags to assign to the bucket"
+  description = "Tags to apply to resources"
   type        = map(string)
   default     = {}
 }
 
 variable "versioning" {
-  description = "Enable S3 bucket versioning (true for Enabled, false for Suspended)"
+  description = "Enable S3 bucket versioning (true=Enabled, false=Suspended)"
   type        = bool
   default     = true
 }
 
-variable "force_destroy" {
-  description = "Allow bucket to be deleted even if it contains objects"
-  type        = bool
-  default     = false
-}
-
-
 variable "kms_key_arn" {
-  description = "Optional CMK ARN. If set, bucket policy enforces this exact key for PutObject."
+  description = "Optional CMK ARN to enforce for PutObject. Leave empty to allow any KMS CMK."
   type        = string
   default     = ""
 }

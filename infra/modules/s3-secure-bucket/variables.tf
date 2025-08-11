@@ -21,3 +21,15 @@ variable "kms_key_arn" {
   default     = ""
 }
 
+variable "enable_kms_enforcement" {
+  type        = bool
+  description = "If true, add bucket policy statements that require aws:kms and the provided KMS key ARN."
+  default     = false
+}
+
+variable "force_destroy" {
+  description = "Whether to force destroy the S3 bucket (delete even if it contains objects)"
+  type        = bool
+  default     = false
+}
+

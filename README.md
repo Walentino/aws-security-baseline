@@ -30,6 +30,27 @@ The first module in this baseline provisions a secure S3 bucket with these contr
 
 This module lives at `infra/modules/s3-secure-bucket/`.  See its README for details, inputs and usage.
 
+## Overview
+
+This repository implements an **AWS Security Baseline** using Terraform, starting with foundational controls for S3 and IAM.  
+The project is structured for **multi-account AWS organizations** and follows Infrastructure as Code (IaC) best practices with modules and reusable configurations.  
+The goal is to provide a starting point for AWS Cloud Security Engineers or solopreneurs to deploy secure-by-default resources.
+
+## Repository Structure
+
+| Path           | Purpose |
+|----------------|---------|
+| `infra/`       | Contains reusable Terraform modules and environment configurations. The `modules/` subfolder holds standalone modules such as `s3-secure-bucket` and `iam-baseline`. |
+| `docs/`        | Holds design notes, diagrams, and planning documents. |
+| `main.tf`      | Example root configuration that wires together modules. Adjust or replace per environment. |
+| `providers.tf` | Declares Terraform providers (currently AWS) and their versions. |
+| `variables.tf` | Defines input variables for the root configuration. |
+| `README.md`    | This file — high-level documentation for the project. |
+
+---
+
+
+
 ## Getting started
 
 1. **Install Terraform** (≥ v1.5).  
@@ -64,3 +85,4 @@ Contributions are welcome.  Please fork the repository and open a pull request w
 ---
 
 **Note:** This README summarises the state of the repository after Week 1 Day 2.  Subsequent days will introduce additional modules (e.g. customer‑managed keys) and documentation.
+

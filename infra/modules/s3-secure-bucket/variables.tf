@@ -1,35 +1,47 @@
 variable "bucket_name" {
-  description = "The name of the S3 bucket"
+  description = "Name for the S3 bucket."
   type        = string
 }
 
-variable "tags" {
-  description = "Tags to apply to resources"
-  type        = map(string)
-  default     = {}
-}
-
-variable "versioning" {
-  description = "Enable S3 bucket versioning (true=Enabled, false=Suspended)"
-  type        = bool
-  default     = true
-}
-
 variable "kms_key_arn" {
-  description = "Optional CMK ARN to enforce for PutObject. Leave empty to allow any KMS CMK."
+  description = "Optional CMK ARN to require for object uploads (SSE-KMS). Leave empty to allow AES256."
   type        = string
   default     = ""
 }
 
-variable "enable_kms_enforcement" {
+variable "enforce_kms_when_provided" {
+  description = "If true and kms_key_arn is set, enforce aws:kms and the specific key-id for PutObject."
   type        = bool
-  description = "If true, add bucket policy statements that require aws:kms and the provided KMS key ARN."
-  default     = false
+  default     = true
+}
+
+variable "enable_versioning" {
+  description = "Enable bucket versioning."
+  type        = bool
+  default     = true
 }
 
 variable "force_destroy" {
-  description = "Whether to force destroy the S3 bucket (delete even if it contains objects)"
+  description = "Force destroy bucket even if it contains objects."
   type        = bool
   default     = false
+}
+
+variable "enable_cloudtrail_delivery" {
+  description = "Add policy statements to allow CloudTrail to deliver to AWSLogs/<account-id>/..."
+  type        = bool
+  default     = false
+}
+
+variable "account_id" {
+  description = "Account ID used in CloudTrail statement path. If empty, module detects it."
+  type        = string
+  default     = ""
+}
+
+variable "tags" {
+  description = "Tags to apply to bucket and related resources."
+  type        = map(string)
+  default     = {}
 }
 

@@ -1,0 +1,6 @@
+aws_region  = "us-east-1"
+aws_profile = "dev"
+
+# Paste the SNS ARN from your GuardDuty alerts output, or leave "" to skip
+# sns_topic_arn = "arn:aws:sns:us-east-1:123456789012:guardduty-high-severity-alerts"
+

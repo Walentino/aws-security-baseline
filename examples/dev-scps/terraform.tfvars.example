@@ -1,0 +1,8 @@
+aws_region        = "us-east-1"
+aws_profile       = "dev"
+
+allowed_regions   = ["us-east-1", "ca-central-1"]
+attach_to_root    = true
+# root_id         = "r-xxxxx" # uncomment if not running as org mgmt account
+policy_name_prefix = "baseline-"
+

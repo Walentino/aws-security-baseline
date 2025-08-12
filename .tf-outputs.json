@@ -1,0 +1,12 @@
+{
+  "cloudtrail_kms_key_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:kms:us-east-1:457664479040:key/e8fcea85-71a0-4807-b460-ebbbdf94aec6"
+  },
+  "cloudtrail_logs_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "nino-cloudtrail-logs-e01cb3d9"
+  }
+}

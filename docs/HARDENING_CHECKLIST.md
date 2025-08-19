@@ -34,3 +34,7 @@
 aws accessanalyzer list-analyzers --region us-east-1 --profile <profile>
 aws guardduty list-detectors --region us-east-1 --profile <profile>
 aws cloudtrail describe-trails --include-shadow-trails --profile <profile>
+
+## G. Rollback rehearsal
+- [x] Ran `terraform -chdir=examples/dev-s3 plan -destroy -out tfdestroy.plan`
+- [x] Documented result in RUNBOOK (YYYY-MM-DD): **No changes. No objects need to be destroyed.**

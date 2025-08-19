@@ -37,4 +37,5 @@ aws cloudtrail describe-trails --include-shadow-trails --profile <profile>
 
 ## G. Rollback rehearsal
 - [x] Ran `terraform -chdir=examples/dev-s3 plan -destroy -out tfdestroy.plan`
-- [x] Documented result in RUNBOOK (YYYY-MM-DD): **No changes. No objects need to be destroyed.**
+- [x] Documented result in RUNBOOK (2025-08-19): **No changes. No objects need to be destroyed.**
+
